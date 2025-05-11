@@ -113,16 +113,18 @@ class Graph(ABC):
                   max_time: int = 600, 
                   return_all_outputs: bool = False) -> List[Any]:
  
-        def is_node_useful(node):
+        def is_node_useful(node, nodes):
+            nodes.append(node)
             if node in self.output_nodes:
                 return True
-            
+
             for successor in node.successors:
-                if is_node_useful(successor):
+                if successor not in nodes and is_node_useful(successor, nodes):
+                    nodes.append(successor)
                     return True
             return False
         
-        useful_node_ids = [node_id for node_id, node in self.nodes.items() if is_node_useful(node)]
+        useful_node_ids = [node_id for node_id, node in self.nodes.items()]
         in_degree = {node_id: len(self.nodes[node_id].predecessors) for node_id in useful_node_ids}
         zero_in_degree_queue = [node_id for node_id, deg in in_degree.items() if deg == 0 and node_id in useful_node_ids]
 

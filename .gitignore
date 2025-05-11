@@ -193,5 +193,7 @@ datasets/gaia/utils/*.jsonl
 /diagrams/*.png
 /figures/*.pdf
 /figures/*.png
-
+my_local_model
 .pypirc
+app*/
+result/

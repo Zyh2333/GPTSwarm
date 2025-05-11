@@ -92,7 +92,7 @@ class JSONReader(Reader):
                 data = json.load(f)
                 #text = str(data)
             return data#text
-        except:
+        except Exception as e:
             return []
     
     def parse(self, file_path: Path) -> str:
